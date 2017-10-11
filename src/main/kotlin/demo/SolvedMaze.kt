@@ -9,6 +9,8 @@ class SolvedMaze {
         return emptyList();
     }
 
+
+
 }
 
 

@@ -13,17 +13,17 @@ apply plugin: 'application'
 
 mainClassName = 'demo.HelloWorldKt'
 
-defaultTasks 'run'
-
 repositories {
   mavenCentral()
 }
 
 dependencies {
+  compile group: 'commons-io', name: 'commons-io', version: '2.5'
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   testCompile 'junit:junit:4.11'
   testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }
+
 
 task wrapper(type: Wrapper) {
   gradleVersion = "4.1"
