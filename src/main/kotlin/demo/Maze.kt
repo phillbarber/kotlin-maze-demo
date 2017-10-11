@@ -20,14 +20,11 @@ class Maze(filename: String) {
             convertLine(line)
         }
 
-
-
-
         println(filename)
     }
 
     private fun convertLine(line: String) :List<Cell> {
-        return line.chars().toArray().map{ character -> Cell() }
+        return line.chars().toArray().map{ character -> Cell(character.toChar()) }
     }
 
     fun solve(): SolvedMaze {

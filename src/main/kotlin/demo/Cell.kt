@@ -1,8 +1,11 @@
 package demo
 
-class Cell{
+class Cell(character: Char) {
 
-    val  type: Type = Type.Free
+    val  type: Type
 
+    init{
+        type = fromChar(character)
+    }
 }
 
