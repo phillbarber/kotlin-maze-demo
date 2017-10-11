@@ -40,5 +40,13 @@ class MazeTest {
         assertThat(maze.rows.size, `is`(25))
         assertThat(maze.rows[14][35].type, `is`(Finish))
     }
+
+    @Test fun getStart() {
+        val maze = Maze("simple-solvable-maze.txt")
+        val start = maze.getStart()!!
+        assertThat(start.type, `is`(Start))
+        assertThat(start.xAxis, `is`(9));
+        assertThat(start.yAxis, `is`(1));
+    }
 }
 

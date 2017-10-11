@@ -16,19 +16,30 @@ class Maze(filename: String) {
                 File(javaClass.getClassLoader().getResource(filename).file), CHARSET)
 
 
-        rows = fileAsString.split(NEW_LINE_DELIMETER).map{ line ->
-            convertLine(line)
+        rows = fileAsString.split(NEW_LINE_DELIMETER).mapIndexed { yIndex, line ->
+            convertLine(line, yIndex)
         }
 
         println(filename)
     }
 
-    private fun convertLine(line: String) :List<Cell> {
-        return line.chars().toArray().map{ character -> Cell(character.toChar()) }
+    private fun convertLine(line: String, yIndex: Int): List<Cell> {
+        return line.chars().toArray().mapIndexed { xIndex, character -> Cell(character.toChar(), xIndex, yIndex) }
     }
 
     fun solve(): SolvedMaze {
         return SolvedMaze()
+    }
+
+    fun getStart(): Cell? {
+        rows.forEach { cells ->
+            cells.forEach { cell ->
+                if (cell.type == Type.Start) {
+                    return cell;
+                }
+            }
+        }
+        return null;
     }
 }
 
