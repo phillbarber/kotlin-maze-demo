@@ -31,8 +31,7 @@ class MazeTest {
 
     @Test fun mazeLoadedFromFileHasStart() {
         val maze = Maze("simple-solvable-maze.txt")
-        assertThat(maze.rows.size, `is`(25))
-        assertThat(maze.rows[1][9].type, `is`(Start))
+        assertThat(maze.rows[1][1].type, `is`(Start))
     }
 
     @Test fun mazeLoadedFromFileHasFinish() {
@@ -45,8 +44,12 @@ class MazeTest {
         val maze = Maze("simple-solvable-maze.txt")
         val start = maze.getStart()!!
         assertThat(start.type, `is`(Start))
-        assertThat(start.xAxis, `is`(9));
-        assertThat(start.yAxis, `is`(1));
+    }
+
+    @Test fun startHasADownCellThatIsFree() {
+        val maze = Maze("simple-solvable-maze.txt")
+        val start = maze.getStart()!!
+        assertThat(start.down!!.type, `is`(Free))
     }
 }
 

@@ -1,15 +1,12 @@
 package demo
 
-class Cell(character: Char, xAxis: Int, yAxis: Int) {
+data class Cell(val type: Type,
+                val xAxis: Int,
+                val yAxis: Int,
+                val down: Cell? = null,
+                val up: Cell? = null,
+                val left: Cell? = null,
+                val right: Cell? = null)
 
-    val xAxis: Int
-    val yAxis: Int
-    val  type: Type
 
-    init{
-        type = fromChar(character)
-        this.xAxis = xAxis
-        this.yAxis = yAxis
-    }
-}
 
