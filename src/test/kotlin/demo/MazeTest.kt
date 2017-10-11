@@ -7,7 +7,7 @@ import org.junit.Test
 class MazeTest {
     @Test fun mazeCanBeLoadedFromFile() {
         val maze = Maze("simple-solvable-maze.txt")
-        assertThat(maze.getRows().size, `is`(25))
+        assertThat(maze.rows.size, `is`(25))
     }
 
 

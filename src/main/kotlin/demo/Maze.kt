@@ -3,16 +3,18 @@ package demo
 import org.apache.commons.io.FileUtils
 import java.io.File
 
+private val CHARSET = "UTF-8"
+
 class Maze(filename: String) {
 
 
-    private val CHARSET = "UTF-8"
+    val rows: List<List<Cell>>
 
     init {
         var fileAsString = FileUtils.readFileToString(
                 File(javaClass.getClassLoader().getResource(filename).file), CHARSET)
         var split = fileAsString.split("\n")
-        split.forEach{line ->
+        rows = split.map{line ->
             convertLine(line)
         }
 
@@ -22,8 +24,8 @@ class Maze(filename: String) {
         println(filename)
     }
 
-    private fun convertLine(line: String) {
-        println(line);
+    private fun convertLine(line: String) :List<Cell> {
+        return listOf(Cell())
     }
 
 
@@ -35,9 +37,7 @@ class Maze(filename: String) {
         return SolvedMaze()
     }
 
-    fun getRows(): List<List<Cell>> {
-        return emptyList()
-    }
+
 }
 
 
