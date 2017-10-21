@@ -3,10 +3,16 @@ package demo
 data class Cell(val type: Type,
                 val xAxis: Int,
                 val yAxis: Int,
-                val down: Cell? = null,
-                val up: Cell? = null,
-                val left: Cell? = null,
-                val right: Cell? = null)
+                var down: Cell? = null,
+                var up: Cell? = null,
+                var left: Cell? = null,
+                var right: Cell? = null){
+    override fun toString(): String {
+        return "Cell(type=$type, xAxis=$xAxis, yAxis=$yAxis)"
+    }
+}
+
+
 
 
 

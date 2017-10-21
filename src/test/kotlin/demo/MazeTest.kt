@@ -1,7 +1,7 @@
 package demo
 
 import demo.Type.*
-import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
@@ -50,6 +50,28 @@ class MazeTest {
         val maze = Maze("simple-solvable-maze.txt")
         val start = maze.getStart()!!
         assertThat(start.down!!.type, `is`(Free))
+    }
+
+    @Test fun bottomCellHasANullCellOneDownFromIt() {
+        val maze = Maze("simple-solvable-maze.txt")
+        assertThat(maze.rows.get(24).get(0).down, `is`(nullValue()))
+    }
+
+    @Test fun topCellHasANullCellOneUpFromIt() {
+        val maze = Maze("simple-solvable-maze.txt")
+        assertThat(maze.rows.get(0).get(0).up, `is`(nullValue()))
+    }
+
+    @Test fun upDownLeftRightAllCorrect() {
+        val maze = Maze("simple-solvable-maze.txt")
+        val cell = maze.rows.get(4).get(4)
+        val up = cell.up!!
+        val left = up.left!!
+        val down = left.down!!
+        val down1 = down.down!!
+        val right = down1.right!!
+        val up1 = right.up!!
+        assertThat(up1, `is`(equalTo(cell)));
     }
 }
 

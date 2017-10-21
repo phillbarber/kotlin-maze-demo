@@ -17,29 +17,41 @@ class Maze(filename: String) {
                 File(javaClass.getClassLoader().getResource(filename).file), CHARSET)
 
 
-        var someRows: List<List<Cell>>? = null;
-
-        someRows = fileAsString.split(NEW_LINE_DELIMETER).mapIndexed { yIndex, line ->
+        var someRows: List<List<Cell>> = fileAsString.split(NEW_LINE_DELIMETER).mapIndexed { yIndex, line ->
             convertLine(line, yIndex)
         }
 
-        someRows = someRows.map { rowsWithNoUpCell ->
-            rowsWithNoUpCell.map { cell ->
-                cell.copy(down = getCellOneDownFromCell(someRows, cell)) }
 
+        someRows.forEachIndexed{yAxis, rowOnYAxis ->
+            rowOnYAxis.forEachIndexed{xAxis, cell ->
+                cell.down = getCellByCoordinates(someRows, cell.yAxis + 1, cell.xAxis)
+                cell.up = getCellByCoordinates(someRows, cell.yAxis - 1, cell.xAxis)
+                cell.left = getCellByCoordinates(someRows, cell.yAxis, cell.xAxis -1)
+                cell.right = getCellByCoordinates(someRows, cell.yAxis , cell.xAxis + 1)
+            }
         }
 
-        rows = someRows!!
+//
+//        someRows = someRows.map { rows ->
+//            rows.map { cell -> cell.copy(
+//                    down = getCellByCoordinates(someRows, cell.yAxis + 1, cell.xAxis),
+//                    up = getCellByCoordinates(someRows, cell.yAxis - 1, cell.xAxis),
+//                    left = getCellByCoordinates(someRows, cell.yAxis, cell.xAxis -1),
+//                    right = getCellByCoordinates(someRows, cell.yAxis + 1, cell.xAxis + 2)) }
+//        }
+
+        rows = someRows
 
 
         println(filename)
     }
 
-    private fun getCellOneDownFromCell(someRows: List<List<Cell>>?, cell: Cell): Cell? {
-        val rowsOnYAxis = someRows!!.get(cell.yAxis)
-        val yAxisOfCellOneDown = cell.yAxis + 1
-        if (yAxisOfCellOneDown > 0 && yAxisOfCellOneDown <rowsOnYAxis.size){
-            return rowsOnYAxis.get(yAxisOfCellOneDown)
+    private fun getCellByCoordinates(someRows: List<List<Cell>>, yAxis: Int, xAxis: Int): Cell? {
+        if (yAxis > 0 && yAxis <someRows.size){
+            val rowOnYAxis = someRows.get(yAxis)
+            if (xAxis > 0 && xAxis<rowOnYAxis.size){
+                return rowOnYAxis.get(xAxis)
+            }
         }
         return null
     }
