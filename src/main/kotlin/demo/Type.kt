@@ -1,5 +1,12 @@
 package demo
 
+enum class Type(){
+    Free(),
+    Wall(),
+    Start(),
+    Finish();
+}
+
 fun fromChar(character: Char) : Type {
     val map = character.toString().map { s ->
         when (s) {
@@ -13,11 +20,4 @@ fun fromChar(character: Char) : Type {
         }
     }
     return map.get(0);
-}
-
-enum class Type(){
-    Free(),
-    Wall(),
-    Start(),
-    Finish();
 }

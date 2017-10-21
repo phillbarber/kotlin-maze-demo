@@ -17,38 +17,33 @@ class Maze(filename: String) {
                 File(javaClass.getClassLoader().getResource(filename).file), CHARSET)
 
 
-        var someRows: List<List<Cell>> = fileAsString.split(NEW_LINE_DELIMETER).mapIndexed { yIndex, line ->
-            convertLine(line, yIndex)
+        var gridOfRows: List<List<Cell>> = fileAsString.split(NEW_LINE_DELIMETER).mapIndexed { yIndex, line ->
+            createListOfCellsForARow(line, yIndex)
         }
 
 
-        someRows.forEachIndexed{yAxis, rowOnYAxis ->
-            rowOnYAxis.forEachIndexed{xAxis, cell ->
-                cell.down = getCellByCoordinates(someRows, cell.yAxis + 1, cell.xAxis)
-                cell.up = getCellByCoordinates(someRows, cell.yAxis - 1, cell.xAxis)
-                cell.left = getCellByCoordinates(someRows, cell.yAxis, cell.xAxis -1)
-                cell.right = getCellByCoordinates(someRows, cell.yAxis , cell.xAxis + 1)
-            }
-        }
+        addDownUpLeftRightToCells(gridOfRows)
 
-//
-//        someRows = someRows.map { rows ->
-//            rows.map { cell -> cell.copy(
-//                    down = getCellByCoordinates(someRows, cell.yAxis + 1, cell.xAxis),
-//                    up = getCellByCoordinates(someRows, cell.yAxis - 1, cell.xAxis),
-//                    left = getCellByCoordinates(someRows, cell.yAxis, cell.xAxis -1),
-//                    right = getCellByCoordinates(someRows, cell.yAxis + 1, cell.xAxis + 2)) }
-//        }
-
-        rows = someRows
+        rows = gridOfRows
 
 
         println(filename)
     }
 
-    private fun getCellByCoordinates(someRows: List<List<Cell>>, yAxis: Int, xAxis: Int): Cell? {
-        if (yAxis > 0 && yAxis <someRows.size){
-            val rowOnYAxis = someRows.get(yAxis)
+    private fun addDownUpLeftRightToCells(gridOfRows: List<List<Cell>>) {
+        gridOfRows.forEachIndexed { yAxis, rowOnYAxis ->
+            rowOnYAxis.forEachIndexed { xAxis, cell ->
+                cell.down = getCellByCoordinates(gridOfRows, cell.yAxis + 1, cell.xAxis)
+                cell.up = getCellByCoordinates(gridOfRows, cell.yAxis - 1, cell.xAxis)
+                cell.left = getCellByCoordinates(gridOfRows, cell.yAxis, cell.xAxis - 1)
+                cell.right = getCellByCoordinates(gridOfRows, cell.yAxis, cell.xAxis + 1)
+            }
+        }
+    }
+
+    private fun getCellByCoordinates(gridOfCells: List<List<Cell>>, yAxis: Int, xAxis: Int): Cell? {
+        if (yAxis > 0 && yAxis < gridOfCells.size){
+            val rowOnYAxis = gridOfCells.get(yAxis)
             if (xAxis > 0 && xAxis<rowOnYAxis.size){
                 return rowOnYAxis.get(xAxis)
             }
@@ -56,7 +51,7 @@ class Maze(filename: String) {
         return null
     }
 
-    private fun convertLine(line: String, yIndex: Int): List<Cell> {
+    private fun createListOfCellsForARow(line: String, yIndex: Int): List<Cell> {
         return line.chars().toArray().mapIndexed { xIndex, character ->
             Cell(type = fromChar(character.toChar()), xAxis = xIndex, yAxis = yIndex) }
     }
