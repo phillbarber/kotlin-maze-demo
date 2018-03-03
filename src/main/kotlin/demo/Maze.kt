@@ -26,8 +26,6 @@ class Maze(filename: String) {
 
         rows = gridOfRows
 
-
-        println(filename)
     }
 
     private fun addDownUpLeftRightToCells(gridOfRows: List<List<Cell>>) {
@@ -56,8 +54,39 @@ class Maze(filename: String) {
             Cell(type = fromChar(character.toChar()), xAxis = xIndex, yAxis = yIndex) }
     }
 
-    fun solve(): SolvedMaze {
-        return SolvedMaze()
+    fun solve(): List<Cell> {
+        val finish = getFinish(getStart(), mutableListOf())
+        println(finish)
+        return finish
+    }
+
+    private fun getFinish(cell: Cell?, route: MutableList<Cell>): List<Cell> {
+        if (cell != null){
+
+            route.add(cell)
+            if (cell.type == Type.Finish){
+                return route;
+            }
+
+            if (cell.down != null && cell.down!!.type != Type.Wall){
+                return getFinish(cell.down, route);
+            }
+
+            if (cell.left != null && cell.left!!.type != Type.Wall ){
+                return getFinish(cell.left, route);
+            }
+
+            if (cell.right != null && cell.right!!.type != Type.Wall ){
+                return getFinish(cell.right, route);
+            }
+
+            if (cell.up != null && cell.up!!.type != Type.Wall ){
+                return getFinish(cell.up, route);
+            }
+        }
+        return route;
+
+
     }
 
     fun getStart(): Cell? {
@@ -68,7 +97,7 @@ class Maze(filename: String) {
                 }
             }
         }
-        return null;
+        return null
     }
 }
 
