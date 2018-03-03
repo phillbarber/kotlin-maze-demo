@@ -3,7 +3,7 @@ package demo
 import org.apache.commons.io.FileUtils
 import java.io.File
 
-private val CHARSET = "UTF-8"
+val CHARSET = "UTF-8"
 private val NEW_LINE_DELIMETER = "\n"
 
 class Maze(filename: String) {
@@ -54,7 +54,7 @@ class Maze(filename: String) {
             Cell(type = fromChar(character.toChar()), xAxis = xIndex, yAxis = yIndex) }
     }
 
-    fun solve(): List<Cell> {
+    fun getSolution(): List<Cell> {
         val finish = getFinish(getStart(), mutableListOf())
         finish.forEach { println(it) }
         return finish
@@ -100,6 +100,24 @@ class Maze(filename: String) {
             }
         }
         return null
+    }
+
+    fun getMazeAsStringWithRoute(route: List<Cell>) : String {
+        val result = StringBuffer()
+        this.rows.forEach {
+            it.forEach { cell ->
+                if (route.contains(cell) && cell.type == Type.Free){
+                    result.append(TRAIL_CHARACTER)
+                }
+                else{
+                    result.append(cell.type.value)
+                }
+            }
+
+            result.append("\n");
+        }
+
+        return result.toString();
     }
 }
 

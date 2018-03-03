@@ -1,10 +1,12 @@
 package demo
 
-enum class Type(){
-    Free(),
-    Wall(),
-    Start(),
-    Finish();
+val TRAIL_CHARACTER = "."
+
+enum class Type(val value: String) {
+    Free(" "),
+    Wall("#"),
+    Start("S"),
+    Finish("F");
 }
 
 fun fromChar(character: Char) : Type {
