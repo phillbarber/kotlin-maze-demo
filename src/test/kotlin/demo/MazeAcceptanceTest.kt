@@ -16,7 +16,7 @@ class MazeAcceptanceTest {
         assertThat(route[route.size-1].type, `is`(Type.Finish))
     }
 
-    @Test @Ignore
+    @Test
     fun simpleSolvableMaze() {
         val route: List<Cell> = Maze("simple-solvable-maze.txt").solve()
 

@@ -56,7 +56,7 @@ class Maze(filename: String) {
 
     fun solve(): List<Cell> {
         val finish = getFinish(getStart(), mutableListOf())
-        println(finish)
+        finish.forEach { println(it) }
         return finish
     }
 
@@ -68,19 +68,19 @@ class Maze(filename: String) {
                 return route;
             }
 
-            if (cell.down != null && cell.down!!.type != Type.Wall){
+            if (shouldVisitCell(cell.down, route)){
                 return getFinish(cell.down, route);
             }
 
-            if (cell.left != null && cell.left!!.type != Type.Wall ){
+            if (shouldVisitCell(cell.left, route)){
                 return getFinish(cell.left, route);
             }
 
-            if (cell.right != null && cell.right!!.type != Type.Wall ){
+            if (shouldVisitCell(cell.right, route)){
                 return getFinish(cell.right, route);
             }
 
-            if (cell.up != null && cell.up!!.type != Type.Wall ){
+            if (shouldVisitCell(cell.up, route)){
                 return getFinish(cell.up, route);
             }
         }
@@ -88,6 +88,8 @@ class Maze(filename: String) {
 
 
     }
+
+    private fun shouldVisitCell(down: Cell?, route: List<Cell>) = down != null && down!!.type != Type.Wall && !route.contains(down)
 
     fun getStart(): Cell? {
         rows.forEach { cells ->
