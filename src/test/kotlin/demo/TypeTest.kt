@@ -1,7 +1,7 @@
 package demo
 
 import demo.Type.*
-import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.`is` as _is
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
@@ -9,19 +9,19 @@ import org.junit.Test
 class TypeTest {
 
     @Test fun fromCharacterForTypeOfFree(){
-        assertThat(fromChar(' '), `is`(Free))
+        assertThat(fromChar(' '), _is(Free))
     }
 
     @Test fun fromCharacterForTypeOfWall(){
-        assertThat(fromChar('#'), `is`(Wall))
+        assertThat(fromChar('#'), _is(Wall))
     }
 
     @Test fun fromCharacterForTypeOfStart(){
-        assertThat(fromChar('S'), `is`(Start))
+        assertThat(fromChar('S'), _is(Start))
     }
 
     @Test fun fromCharacterForTypeOfFinish(){
-        assertThat(fromChar('F'), `is`(Finish))
+        assertThat(fromChar('F'), _is(Finish))
     }
 
 }
