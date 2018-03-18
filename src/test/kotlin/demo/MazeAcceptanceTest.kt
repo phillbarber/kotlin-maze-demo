@@ -1,16 +1,13 @@
 package demo 
 
-import org.apache.commons.io.FileUtils
-import org.hamcrest.CoreMatchers.`is` as _is
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
-import java.io.File
+import org.hamcrest.CoreMatchers.`is` as _is
 
 class MazeAcceptanceTest {
 
-
     @Test fun superSimpleSolvableMaze() {
-        val route: List<Cell> = Maze("super-simple-solvable-maze.txt").getSolution()
+        val route: List<Cell> = Maze(superSimpleSolvableMaze).getSolution()
 
         assertThat(route[0].type, _is (Type.Start))
         assertThat(route[route.size-1].type, _is (Type.Finish))
@@ -18,7 +15,7 @@ class MazeAcceptanceTest {
 
     @Test
     fun simpleSolvableMaze() {
-        val maze = Maze("simple-solvable-maze.txt")
+        val maze = Maze(superSimpleSolvableMaze)
         val route: List<Cell> = maze.getSolution()
 
         assertThat(route[0].type, _is (Type.Start))
@@ -27,13 +24,11 @@ class MazeAcceptanceTest {
     }
 
     @Test fun superSimpleSolvableMazeCanBePrinted() {
-        val maze = Maze("super-simple-solvable-maze.txt")
+        val maze = Maze(superSimpleSolvableMaze)
         val route: List<Cell> = maze.getSolution()
 
         var mazeAsStringWithRoute = maze.getMazeAsStringWithRoute(route)
-        var expectedMazeWithRoute = FileUtils.readFileToString(
-                File(javaClass.getClassLoader().getResource("expected-super-simple-solvable-maze-with-route.txt").file), CHARSET)
-        assertThat(mazeAsStringWithRoute, _is (expectedMazeWithRoute))
+        assertThat(mazeAsStringWithRoute, _is (expectedSuperSimpleSolvableMazeWithRoute))
 
 
     }

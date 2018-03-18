@@ -1,23 +1,18 @@
 package demo
 
-import org.apache.commons.io.FileUtils
-import java.io.File
-
-val CHARSET = "UTF-8"
 private val NEW_LINE_DELIMETER = "\n"
 
-class Maze(filename: String) {
+class Maze(fileAsString: String) {
 
 
     val rows: List<List<Cell>>
 
 
     init {
-        var fileAsString = FileUtils.readFileToString(
-                File(javaClass.getClassLoader().getResource(filename).file), CHARSET)
 
-
-        var gridOfRows: List<List<Cell>> = fileAsString.split(NEW_LINE_DELIMETER).mapIndexed { yIndex, line ->
+        var gridOfRows: List<List<Cell>> = fileAsString
+                .split(NEW_LINE_DELIMETER)
+                .mapIndexed { yIndex, line ->
             createListOfCellsForARow(line, yIndex)
         }
 
