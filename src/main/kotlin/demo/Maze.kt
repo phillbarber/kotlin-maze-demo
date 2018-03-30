@@ -24,8 +24,8 @@ class Maze(fileAsString: String) {
     }
 
     private fun addDownUpLeftRightToCells(gridOfRows: List<List<Cell>>) {
-        gridOfRows.forEachIndexed { yAxis, rowOnYAxis ->
-            rowOnYAxis.forEachIndexed { xAxis, cell ->
+        gridOfRows.forEach{ rowOnYAxis ->
+            rowOnYAxis.forEach { cell ->
                 cell.down = getCellByCoordinates(gridOfRows, cell.yAxis + 1, cell.xAxis)
                 cell.up = getCellByCoordinates(gridOfRows, cell.yAxis - 1, cell.xAxis)
                 cell.left = getCellByCoordinates(gridOfRows, cell.yAxis, cell.xAxis - 1)
@@ -46,7 +46,9 @@ class Maze(fileAsString: String) {
 
     private fun createListOfCellsForARow(line: String, yIndex: Int): List<Cell> {
         return line.chars().toArray().mapIndexed { xIndex, character ->
-            Cell(type = fromChar(character.toChar()), xAxis = xIndex, yAxis = yIndex) }
+            Cell(   type = fromChar(character.toChar()),
+                    xAxis = xIndex,
+                    yAxis = yIndex) }
     }
 
     fun getSolution(): List<Cell> {
