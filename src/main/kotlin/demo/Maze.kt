@@ -58,32 +58,30 @@ class Maze(fileAsString: String) {
     }
 
     private fun getFinish(cell: Cell?, route: MutableList<Cell>): List<Cell> {
+        if (route.filter { cell -> cell.type == Type.Finish }.any()){
+            return route;
+        }
         if (cell != null){
-
             route.add(cell)
             if (cell.type == Type.Finish){
                 return route;
             }
-
             if (shouldVisitCell(cell.down, route)){
-                return getFinish(cell.down, route);
-            }
-
-            if (shouldVisitCell(cell.left, route)){
-                return getFinish(cell.left, route);
+                getFinish(cell.down, route);
             }
 
             if (shouldVisitCell(cell.right, route)){
-                return getFinish(cell.right, route);
+                getFinish(cell.right, route);
+            }
+            if (shouldVisitCell(cell.left, route)){
+                getFinish(cell.left, route);
+            }
+            if (shouldVisitCell(cell.up, route)){
+                getFinish(cell.up, route);
             }
 
-            if (shouldVisitCell(cell.up, route)){
-                return getFinish(cell.up, route);
-            }
         }
         return route;
-
-
     }
 
     private fun shouldVisitCell(down: Cell?, route: List<Cell>) = down != null && down!!.type != Type.Wall && !route.contains(down)

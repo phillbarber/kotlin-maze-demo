@@ -83,6 +83,33 @@ val simpleSolvableMaze = """
 #                  #                       #
 ############################################""".removeFirstCharacter()
 
+val mazeWithANarrowWall="""
+############################################
+#                  #                       #
+#                  #                       #
+#                  #                       #
+#                  #                       #
+#                  #                       #
+#                  #                       #
+#                  #                       #
+#                  #         F             #
+#                  #                       #
+#                  #                       #
+#                  #                       #
+#    S             #                       #
+#                  #                       #
+#                  #                       #
+#                                          #
+#                  #                       #
+#                  #                       #
+#                  #                       #
+############################################""".removeFirstCharacter()
+
+
+val maze = """
+##########
+# S  F   #
+##########""".removeFirstCharacter()
 
 fun String.removeFirstCharacter(): String{
     return this.substring(1, this.length);

@@ -8,14 +8,22 @@ class MazeAcceptanceTest {
 
     @Test fun superSimpleSolvableMaze() {
         val route: List<Cell> = Maze(superSimpleSolvableMaze).getSolution()
-
         assertThat(route[0].type, _is (Type.Start))
         assertThat(route[route.size-1].type, _is (Type.Finish))
     }
 
     @Test
     fun simpleSolvableMaze() {
-        val maze = Maze(superSimpleSolvableMaze)
+        val maze = Maze(simpleSolvableMaze)
+        val route: List<Cell> = maze.getSolution()
+        assertThat(route[0].type, _is (Type.Start))
+        assertThat(route[route.size-1].type, _is (Type.Finish))
+        println(maze.getMazeAsStringWithRoute(route));
+    }
+
+    @Test
+    fun mazeWithNarrowWallCanBeSolved() {
+        val maze = Maze(mazeWithANarrowWall)
         val route: List<Cell> = maze.getSolution()
 
         assertThat(route[0].type, _is (Type.Start))
