@@ -53,7 +53,6 @@ class Maze(fileAsString: String) {
 
     fun getSolution(): List<Cell> {
         val finish = getFinish(getStart(), mutableListOf())
-        finish.forEach { println(it) }
         return finish
     }
 
@@ -79,7 +78,6 @@ class Maze(fileAsString: String) {
             if (shouldVisitCell(cell.up, route)){
                 getFinish(cell.up, route);
             }
-
         }
         return route;
     }
